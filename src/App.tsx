@@ -1,5 +1,6 @@
 import { LazyMotion, MotionConfig, domAnimation } from 'framer-motion'
 import { lazy, Suspense } from 'react'
+import { Footer } from '@/components/footer/Footer'
 import { SkipLink } from '@/components/layout/SkipLink'
 import { Navbar } from '@/components/navigation/Navbar'
 import { sectionOrder } from '@/data/navigation'
@@ -27,6 +28,7 @@ export default function App() {
         <main id="main" tabIndex={-1} className="relative z-10 outline-none">
           <PageSections />
         </main>
+        <Footer />
       </LazyMotion>
     </MotionConfig>
   )

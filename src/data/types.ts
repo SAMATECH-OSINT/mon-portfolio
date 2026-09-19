@@ -35,6 +35,17 @@ export type IconKey =
   | 'scale'
   | 'globe'
   | 'users'
+  | 'chart'
+  | 'download'
+  | 'server'
+  | 'activity'
+  | 'search'
+  | 'radar'
+  | 'siren'
+  | 'boxes'
+  | 'briefcase'
+  | 'flask'
+  | 'file'
 
 export interface Period {
   /** Année de début. */

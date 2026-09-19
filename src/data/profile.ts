@@ -23,6 +23,8 @@ interface Profile {
   about: {
     title: string
     paragraphs: readonly string[]
+    /** Briques du profil, du réseau à la transformation numérique. */
+    pillars: ReadonlyArray<{ icon: IconKey; label: string }>
   }
   /** Indicateurs du Hero : aucun chiffre n'est validé à ce stade. */
   stats: {
@@ -67,6 +69,16 @@ export const profile: Profile = {
     paragraphs: [
       'Mon profil combine cybersécurité, Cloud, Data Engineering, Big Data, intelligence artificielle, réseaux, développement et transformation numérique.',
       TODO,
+    ],
+    pillars: [
+      { icon: 'network', label: 'Réseaux' },
+      { icon: 'shield', label: 'Cybersécurité' },
+      { icon: 'cloud', label: 'Cloud' },
+      { icon: 'database', label: 'Data Engineering' },
+      { icon: 'layers', label: 'Big Data' },
+      { icon: 'brain', label: 'Intelligence artificielle' },
+      { icon: 'code', label: 'Développement' },
+      { icon: 'workflow', label: 'Transformation numérique' },
     ],
   },
 

@@ -1,6 +1,6 @@
 import type { IconKey } from './types'
 
-export interface SkillGroup {
+interface SkillGroup {
   label: string
   items: readonly string[]
 }
@@ -87,7 +87,7 @@ export const skillDomains: readonly SkillDomain[] = [
       'APIs',
       'Bases de données',
     ],
-    technologies: ['Python', 'Pandas', 'SQL', 'PostgreSQL', 'PostGIS', 'Neo4j'],
+    technologies: ['Python', 'Pandas', 'SQL', 'PostgreSQL', 'PostGIS', 'Neo4j', 'ETL'],
   },
   {
     id: 'bigdata',
