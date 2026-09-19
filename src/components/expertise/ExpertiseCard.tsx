@@ -8,10 +8,12 @@ interface ExpertiseCardProps {
   domain: SkillDomain
   /** Axe mis en avant (Cloud, Big Data) : liseré lumineux. */
   featured?: boolean
+  /** Carte sur deux colonnes : les groupes de technologies se répartissent en deux colonnes. */
+  wide?: boolean
   className?: string
 }
 
-export function ExpertiseCard({ domain, featured = false, className }: ExpertiseCardProps) {
+export function ExpertiseCard({ domain, featured = false, wide = false, className }: ExpertiseCardProps) {
   return (
     <Card
       as="article"
@@ -45,7 +47,7 @@ export function ExpertiseCard({ domain, featured = false, className }: Expertise
 
       <div className="mt-auto pt-6">
         {domain.groups ? (
-          <div className="grid gap-4">
+          <div className={cn('grid gap-4', wide && 'sm:grid-cols-2')}>
             {domain.groups.map((group) => (
               <div key={group.label}>
                 <p className="font-mono text-[0.7rem] uppercase tracking-widest text-ink-subtle">{group.label}</p>

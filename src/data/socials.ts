@@ -1,4 +1,3 @@
-import { TODO } from './types'
 import type { IconKey, Maybe } from './types'
 
 export interface Social {
@@ -12,10 +11,10 @@ export interface Social {
 /**
  * Email : adresse professionnelle figurant sur le CV (à remplacer si vous préférez une autre adresse).
  * Téléphones et références du CV : volontairement non publiés.
- * TODO : URLs LinkedIn et GitHub, absentes du CV.
+ * LinkedIn et GitHub : URLs validées par Mamadou Sarr.
  */
 export const socials: readonly Social[] = [
   { id: 'email', label: 'Email', icon: 'mail', href: 'mailto:mamadou.sarrgmi@interieur.gouv.sn' },
-  { id: 'linkedin', label: 'LinkedIn', icon: 'linkedin', href: TODO },
-  { id: 'github', label: 'GitHub', icon: 'github', href: TODO },
+  { id: 'linkedin', label: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/in/mamadou-sarr-4b2419114' },
+  { id: 'github', label: 'GitHub', icon: 'github', href: 'https://github.com/SAMATECH-OSINT' },
 ]

@@ -8,7 +8,8 @@ import { cloudFlow, deliveryChain } from '@/data/architecture'
 import { skillDomains } from '@/data/skills'
 
 export function CloudSection() {
-  const cloud = skillDomains.find((domain) => domain.id === 'cloud')
+  const infrastructure = skillDomains.filter((domain) => domain.id === 'cloud' || domain.id === 'devops')
+  const skills = [...new Set(infrastructure.flatMap((domain) => [...domain.focus, ...domain.technologies]))]
 
   return (
     <Section id="cloud">
@@ -41,13 +42,13 @@ export function CloudSection() {
         </p>
       </div>
 
-      {cloud && (
+      {skills.length > 0 && (
         <Reveal className="mx-auto mt-14 max-w-4xl">
           <p className="text-center font-mono text-xs uppercase tracking-[0.18em] text-ink-subtle">
             Compétences infrastructure
           </p>
           <ul className="mt-5 flex flex-wrap justify-center gap-2">
-            {[...cloud.focus, ...cloud.technologies.filter((tech) => !cloud.focus.includes(tech))].map((item) => (
+            {skills.map((item) => (
               <li key={item}>
                 <Badge variant="accent">{item}</Badge>
               </li>

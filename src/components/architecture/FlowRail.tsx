@@ -31,6 +31,9 @@ export function FlowRail({ steps, label }: FlowRailProps) {
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <span className="font-mono text-xs text-ink-subtle">{String(index + 1).padStart(2, '0')}</span>
                   <h3 className="text-lg text-ink">{step.label}</h3>
+                  {step.tag && (
+                    <span className="font-mono text-[0.68rem] uppercase tracking-widest text-cyan">{step.tag}</span>
+                  )}
                 </div>
                 <p className="mt-2 text-sm text-ink-muted">{step.role}</p>
                 {step.technologies.length > 0 && (

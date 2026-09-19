@@ -10,7 +10,7 @@ export interface FlowNode {
   role: string
   icon: IconKey
   technologies: readonly string[]
-  /** Nature de la brique (ex. « Hébergement », « Plateforme managée ») : évite de mettre tous les acteurs au même niveau. */
+  /** Positionnement de la brique (ex. « Hosting / Infrastructure », « Cloud Provider ») ou phase (ex. « Detect ») : évite de mettre tous les acteurs au même niveau. */
   tag?: string
 }
 
@@ -26,7 +26,7 @@ export const techChain: readonly FlowNode[] = [
     label: 'Network',
     role: 'Connectivité et infrastructure réseau sécurisée : la fondation sur laquelle tout repose.',
     icon: 'network',
-    technologies: ['Cisco', 'Aruba', 'Fortinet', 'WAN/LAN', 'Linux'],
+    technologies: ['Cisco', 'Aruba', 'Fortinet', 'pfSense', 'WAN/LAN', 'Linux'],
   },
   {
     id: 'cloud',
@@ -68,14 +68,14 @@ export const techChain: readonly FlowNode[] = [
     label: 'AI',
     role: 'Machine Learning, NLP / LLM, RAG et agents pour prédire, classer, interroger et assister.',
     icon: 'brain',
-    technologies: ['Scikit-learn', 'XGBoost', 'OpenAI', 'RAG'],
+    technologies: ['Scikit-learn', 'Random Forest', 'XGBoost', 'OpenAI', 'RAG'],
   },
   {
     id: 'security',
     label: 'Security',
     role: 'Détection, investigation et réponse : sécuriser chaque couche de la chaîne.',
     icon: 'shield',
-    technologies: ['Wazuh', 'TheHive', 'ELK', 'OpenSearch'],
+    technologies: ['Suricata', 'OpenVPN', 'Wazuh', 'TheHive', 'ELK', 'OpenSearch'],
   },
   {
     id: 'decision',
@@ -99,6 +99,7 @@ export const cloudFlow: readonly FlowRow[] = [
         label: 'Cloudflare',
         role: 'Point d’entrée : DNS, CDN et certificats SSL/TLS.',
         icon: 'globe',
+        tag: 'Edge / DNS / Security',
         technologies: ['DNS', 'CDN', 'SSL/TLS'],
       },
     ],
@@ -109,7 +110,7 @@ export const cloudFlow: readonly FlowRow[] = [
       {
         id: 'hostinger',
         label: 'Hostinger / VPS',
-        tag: 'Hébergement',
+        tag: 'Hosting / Infrastructure',
         role: 'Solution d’hébergement et d’infrastructure utilisée pour le déploiement : serveur Linux administré, reverse proxy, SSL.',
         icon: 'server',
         technologies: ['Hostinger', 'VPS', 'Linux', 'Reverse proxy'],
@@ -117,7 +118,7 @@ export const cloudFlow: readonly FlowRow[] = [
       {
         id: 'render',
         label: 'Render',
-        tag: 'Plateforme managée',
+        tag: 'Cloud Application Deployment',
         role: 'Déploiement de services sur une plateforme managée.',
         icon: 'cloud',
         technologies: ['Render'],
@@ -125,7 +126,7 @@ export const cloudFlow: readonly FlowRow[] = [
       {
         id: 'aws',
         label: 'AWS',
-        tag: 'Cloud provider',
+        tag: 'Cloud Provider',
         role: 'Services d’infrastructure Cloud.',
         icon: 'boxes',
         technologies: ['AWS'],
@@ -138,7 +139,7 @@ export const cloudFlow: readonly FlowRow[] = [
       {
         id: 'docker',
         label: 'Docker',
-        tag: 'Conteneurisation',
+        tag: 'Containerization',
         role: 'Applications et services packagés en conteneurs, reproductibles d’un environnement à l’autre.',
         icon: 'boxes',
         technologies: ['Docker'],
@@ -151,7 +152,7 @@ export const cloudFlow: readonly FlowRow[] = [
       {
         id: 'dokploy',
         label: 'Dokploy',
-        tag: 'Déploiement',
+        tag: 'Deployment / Application Management',
         role: 'Déploiement et gestion des applications conteneurisées sur le serveur.',
         icon: 'workflow',
         technologies: ['Dokploy', 'Docker'],
@@ -176,7 +177,7 @@ export const cloudFlow: readonly FlowRow[] = [
       {
         id: 'neon',
         label: 'PostgreSQL / Neon',
-        tag: 'Relationnel',
+        tag: 'Relational · PostgreSQL Cloud',
         role: 'Base de données relationnelle, auto-hébergée ou managée avec Neon.',
         icon: 'database',
         technologies: ['PostgreSQL', 'Neon'],
@@ -184,7 +185,7 @@ export const cloudFlow: readonly FlowRow[] = [
       {
         id: 'mongodb',
         label: 'MongoDB',
-        tag: 'NoSQL · document',
+        tag: 'Document · NoSQL',
         role: 'Base de données NoSQL orientée documents.',
         icon: 'database',
         technologies: ['MongoDB'],
@@ -192,7 +193,7 @@ export const cloudFlow: readonly FlowRow[] = [
       {
         id: 'r2',
         label: 'Cloudflare R2',
-        tag: 'Stockage objet',
+        tag: 'Object Storage',
         role: 'Stockage objet pour les fichiers et médias.',
         icon: 'boxes',
         technologies: ['Object storage', 'Cloudflare R2'],
@@ -254,35 +255,35 @@ export const deliveryChain: readonly FlowNode[] = [
   },
 ]
 
-/** Sources → NiFi → Kafka → Spark → Storage → Analytics → AI. */
+/** Sources → Data Ingestion → ETL / ELT → Streaming → Storage → Distributed Processing → Analytics → AI. */
 export const pipelineFlow: readonly FlowNode[] = [
   {
     id: 'sources',
     label: 'Sources',
-    role: 'Bases de données, APIs, fichiers et journaux : l’origine des données.',
+    role: 'Bases de données, APIs, fichiers et journaux : l’origine des données.',
     icon: 'database',
     technologies: [],
   },
   {
-    id: 'nifi',
-    label: 'Apache NiFi',
-    role: 'Ingestion, routage et transformation des flux (ETL / ELT).',
+    id: 'ingestion',
+    label: 'Data Ingestion',
+    role: 'Collecte et routage des données depuis des sources multiples, en continu ou par lots.',
     icon: 'download',
-    technologies: ['ETL', 'ELT', 'Ingestion'],
+    technologies: ['Apache NiFi', 'APIs'],
   },
   {
-    id: 'kafka',
-    label: 'Apache Kafka',
-    role: 'Transport des événements en continu : le socle du streaming.',
+    id: 'etl',
+    label: 'ETL / ELT',
+    role: 'Nettoyage, transformation et chargement des données vers les couches de stockage.',
+    icon: 'workflow',
+    technologies: ['Python', 'Pandas', 'Apache NiFi'],
+  },
+  {
+    id: 'streaming',
+    label: 'Streaming',
+    role: 'Transport des événements en continu : le socle du temps réel.',
     icon: 'activity',
-    technologies: ['Streaming', 'Événements'],
-  },
-  {
-    id: 'spark',
-    label: 'Apache Spark',
-    role: 'Traitement distribué des données, en batch comme en streaming.',
-    icon: 'layers',
-    technologies: ['Batch', 'Streaming', 'Distribué'],
+    technologies: ['Apache Kafka'],
   },
   {
     id: 'storage',
@@ -290,6 +291,13 @@ export const pipelineFlow: readonly FlowNode[] = [
     role: 'Stockage relationnel, document (NoSQL), graphe, recherche et data lake.',
     icon: 'server',
     technologies: ['PostgreSQL', 'MongoDB', 'Neo4j', 'Elasticsearch', 'OpenSearch'],
+  },
+  {
+    id: 'processing',
+    label: 'Distributed Processing',
+    role: 'Traitement distribué des données à grande échelle, en batch comme en streaming.',
+    icon: 'layers',
+    technologies: ['Apache Spark'],
   },
   {
     id: 'analytics',
@@ -301,7 +309,7 @@ export const pipelineFlow: readonly FlowNode[] = [
   {
     id: 'ai',
     label: 'AI',
-    role: 'Modèles prédictifs, LLM et RAG alimentés par des données fiables.',
+    role: 'Modèles prédictifs, NLP / LLM et RAG alimentés par des données fiables.',
     icon: 'brain',
     technologies: ['Scikit-learn', 'XGBoost', 'RAG'],
   },
@@ -316,62 +324,216 @@ export const pipelineConcepts: ReadonlyArray<{ label: string; description: strin
   { label: 'Data pipelines', description: 'Enchaînements automatisés, surveillés et maintenables.' },
 ]
 
-/** Applications → Logs → ELK/OpenSearch → Kibana/Grafana → Monitoring → Detection → Security Response. */
-export const observabilityFlow: readonly FlowNode[] = [
+/** Collect → Detect → Correlate → Alert → Investigate → Respond → Monitor. */
+export const socPhases: readonly string[] = ['Collect', 'Detect', 'Correlate', 'Alert', 'Investigate', 'Respond', 'Monitor']
+
+/**
+ * Architecture SOC : représentation conceptuelle et générique. Elle ne décrit aucune
+ * infrastructure institutionnelle réelle (aucun hôte, adresse, règle ni réseau interne).
+ */
+export const socFlow: readonly FlowNode[] = [
   {
-    id: 'applications',
-    label: 'Applications',
-    role: 'Applications, systèmes et équipements qui produisent des événements.',
-    icon: 'code',
+    id: 'endpoints',
+    label: 'Endpoints / Network',
+    tag: 'Sources',
+    role: 'Postes, serveurs et équipements réseau : la source des événements de sécurité.',
+    icon: 'network',
     technologies: [],
   },
   {
-    id: 'logs',
-    label: 'Logs',
-    role: 'Collecte et centralisation des journaux et des métriques.',
+    id: 'events',
+    label: 'Logs / Security Events / Suricata',
+    tag: 'Collect',
+    role: 'Journaux système et applicatifs, événements réseau et alertes IDS / IPS collectés en continu.',
     icon: 'file',
-    technologies: [],
+    technologies: ['Suricata'],
   },
   {
-    id: 'elk',
-    label: 'ELK / OpenSearch',
-    role: 'Indexation et recherche rapide dans de gros volumes de logs.',
-    icon: 'search',
-    technologies: ['Elasticsearch', 'OpenSearch', 'ELK'],
-  },
-  {
-    id: 'dashboards',
-    label: 'Kibana / Grafana',
-    role: 'Visualisation, tableaux de bord et exploration.',
-    icon: 'chart',
-    technologies: ['Kibana', 'Grafana'],
-  },
-  {
-    id: 'monitoring',
-    label: 'Monitoring',
-    role: 'Surveillance continue, seuils et alertes.',
-    icon: 'activity',
-    technologies: ['Grafana'],
-  },
-  {
-    id: 'detection',
-    label: 'Detection',
-    role: 'Détection d’événements de sécurité et corrélation.',
+    id: 'siem',
+    label: 'Wazuh — SIEM / XDR open source',
+    tag: 'Detect',
+    role: 'Plateforme de supervision de sécurité : collecte des événements, analyse et détection.',
     icon: 'radar',
     technologies: ['Wazuh'],
   },
   {
-    id: 'response',
-    label: 'Security Response',
-    role: 'Qualification, investigation et traitement des incidents.',
+    id: 'correlation',
+    label: 'Detection & Correlation',
+    tag: 'Correlate',
+    role: 'Règles et corrélation d’événements pour faire ressortir les comportements suspects.',
+    icon: 'workflow',
+    technologies: [],
+  },
+  {
+    id: 'alerts',
+    label: 'Security Alerts',
+    tag: 'Alert',
+    role: 'Alertes qualifiées et hiérarchisées, transmises pour traitement.',
     icon: 'siren',
+    technologies: [],
+  },
+  {
+    id: 'thehive',
+    label: 'TheHive — Incident Response / Case Management',
+    tag: 'Investigate',
+    role: 'Ouverture et suivi des dossiers d’incident, collaboration entre analystes.',
+    icon: 'briefcase',
     technologies: ['TheHive'],
+  },
+  {
+    id: 'response',
+    label: 'Investigation / Response',
+    tag: 'Respond',
+    role: 'Analyse de l’incident et actions de réponse.',
+    icon: 'shield',
+    technologies: [],
+  },
+  {
+    id: 'reporting',
+    label: 'Monitoring / Reporting',
+    tag: 'Monitor',
+    role: 'Suivi continu, tableaux de bord et rapports pour piloter la sécurité dans la durée.',
+    icon: 'activity',
+    technologies: ['Kibana', 'Grafana'],
   },
 ]
 
-export const securityTools: ReadonlyArray<{ name: string; role: string }> = [
-  { name: 'Wazuh', role: 'Supervision de sécurité et détection d’événements.' },
-  { name: 'TheHive', role: 'Gestion et traitement des incidents de sécurité.' },
-  { name: 'Elasticsearch · OpenSearch', role: 'Indexation et recherche dans les journaux.' },
-  { name: 'Kibana · Grafana', role: 'Visualisation, tableaux de bord et alerting.' },
+export interface ObservabilityFamily {
+  id: string
+  label: string
+  icon: IconKey
+  description: string
+  /** Noms de technologies ; le positionnement de chacune vient de `technologyRoles` (data/skills.ts). */
+  tools: readonly string[]
+}
+
+/** Observability : quatre familles distinctes, jamais présentées comme un produit unique. */
+export const observabilityFamilies: readonly ObservabilityFamily[] = [
+  {
+    id: 'logs',
+    label: 'Logs / Search',
+    icon: 'search',
+    description: 'Indexer et interroger de gros volumes de journaux.',
+    tools: ['ELK', 'Elasticsearch', 'OpenSearch'],
+  },
+  {
+    id: 'visualization',
+    label: 'Visualization',
+    icon: 'chart',
+    description: 'Tableaux de bord et exploration visuelle des données.',
+    tools: ['Kibana', 'Grafana'],
+  },
+  {
+    id: 'security-monitoring',
+    label: 'Security Monitoring',
+    icon: 'radar',
+    description: 'Détection des événements de sécurité, sur les hôtes comme sur le réseau.',
+    tools: ['Wazuh', 'Suricata'],
+  },
+  {
+    id: 'incident-response',
+    label: 'Incident Response',
+    icon: 'siren',
+    description: 'Qualification, suivi et traitement des incidents de sécurité.',
+    tools: ['TheHive'],
+  },
+]
+
+/**
+ * Accès distant sécurisé : schéma de principe uniquement. Aucune adresse, configuration,
+ * clé, nom d'hôte ni règle de pare-feu n'est publié.
+ */
+export const vpnFlow: readonly FlowNode[] = [
+  {
+    id: 'remote-user',
+    label: 'Remote User',
+    role: 'Utilisateur autorisé, connecté depuis l’extérieur.',
+    icon: 'users',
+    technologies: [],
+  },
+  {
+    id: 'openvpn',
+    label: 'OpenVPN',
+    tag: 'VPN / Secure Access',
+    role: 'Tunnel chiffré et authentification de l’accès distant.',
+    icon: 'shield',
+    technologies: [],
+  },
+  {
+    id: 'secure-network',
+    label: 'Secure Network',
+    role: 'Réseau protégé, atteint à travers le tunnel sécurisé.',
+    icon: 'network',
+    technologies: [],
+  },
+  {
+    id: 'protected-services',
+    label: 'Protected Services',
+    role: 'Applications et ressources réservées aux utilisateurs autorisés.',
+    icon: 'server',
+    technologies: [],
+  },
+]
+
+/**
+ * Cybersécurité × Data × IA : Network → Security Events → SIEM → Data Collection →
+ * Data Engineering → Analytics → AI → Decision Support. Approche d'ingénierie, pas un schéma d'infrastructure réelle.
+ */
+export const securityDataThread: readonly FlowNode[] = [
+  {
+    id: 'network',
+    label: 'Network',
+    role: 'Le trafic et les équipements réseau : la première source de signaux.',
+    icon: 'network',
+    technologies: ['pfSense', 'Fortinet', 'Cisco', 'Aruba'],
+  },
+  {
+    id: 'events',
+    label: 'Security Events',
+    role: 'Suricata (IDS / IPS) transforme le trafic réseau en événements de sécurité exploitables.',
+    icon: 'radar',
+    technologies: ['Suricata'],
+  },
+  {
+    id: 'siem',
+    label: 'SIEM / XDR',
+    role: 'Wazuh — SIEM / XDR open source — collecte, détecte et corrèle ; TheHive prend en charge la gestion des incidents.',
+    icon: 'shield',
+    technologies: ['Wazuh', 'TheHive'],
+  },
+  {
+    id: 'collection',
+    label: 'Data Collection',
+    role: 'Recherche, analyse et visualisation des logs à grande échelle.',
+    icon: 'search',
+    technologies: ['ELK', 'OpenSearch'],
+  },
+  {
+    id: 'engineering',
+    label: 'Data Engineering',
+    role: 'Traitement, transformation et préparation de la donnée.',
+    icon: 'workflow',
+    technologies: ['Python', 'Pandas', 'ETL', 'Apache Spark'],
+  },
+  {
+    id: 'analytics',
+    label: 'Analytics',
+    role: 'Exploration et tableaux de bord pour rendre la donnée lisible.',
+    icon: 'chart',
+    technologies: ['Kibana', 'Grafana'],
+  },
+  {
+    id: 'ai',
+    label: 'AI',
+    role: 'Machine Learning et NLP pour une analyse avancée des données.',
+    icon: 'brain',
+    technologies: ['Scikit-learn', 'NLP', 'LLM'],
+  },
+  {
+    id: 'decision',
+    label: 'Decision Support',
+    role: 'Recommandations et aide à la décision.',
+    icon: 'target',
+    technologies: [],
+  },
 ]

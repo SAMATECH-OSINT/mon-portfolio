@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import { FlowConnector } from '@/components/architecture/FlowConnector'
 import { Badge } from '@/components/ui/Badge'
 import { Icon } from '@/components/ui/Icon'
-import type { SkillDomain } from '@/data/skills'
+import { technologyRoles, type SkillDomain } from '@/data/skills'
 import { profile } from '@/data/profile'
 import { cn } from '@/lib/cn'
 import { domainsSharing, relatedDomainIds } from '@/lib/skills'
@@ -13,9 +13,9 @@ import { domainsSharing, relatedDomainIds } from '@/lib/skills'
  */
 const LAYERS: ReadonlyArray<readonly string[]> = [
   ['ai'],
-  ['data', 'cloud', 'cybersecurity'],
-  ['databases', 'bigdata'],
-  ['networks'],
+  ['bigdata', 'data', 'databases'],
+  ['cloud', 'devops'],
+  ['security'],
   ['development'],
 ]
 
@@ -24,7 +24,7 @@ interface SkillsMatrixProps {
 }
 
 export function SkillsMatrix({ domains }: SkillsMatrixProps) {
-  const [selectedId, setSelectedId] = useState('cybersecurity')
+  const [selectedId, setSelectedId] = useState('security')
   const selected = domains.find((domain) => domain.id === selectedId) ?? domains[0]!
   const related = relatedDomainIds(domains, selected.id)
 
@@ -95,6 +95,7 @@ export function SkillsMatrix({ domains }: SkillsMatrixProps) {
                 <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {group.items.map((tech) => {
                     const shared = domainsSharing(domains, selected.id, tech)
+                    const role = technologyRoles[tech]
                     return (
                       <li
                         key={tech}
@@ -104,6 +105,7 @@ export function SkillsMatrix({ domains }: SkillsMatrixProps) {
                         )}
                       >
                         <span className="block text-sm font-medium text-ink">{tech}</span>
+                        {role && <span className="mt-0.5 block text-[0.7rem] leading-snug text-ink-muted">{role}</span>}
                         {shared.length > 0 && (
                           <span className="mt-0.5 block font-mono text-[0.65rem] text-cyan">
                             + {shared.map((d) => d.label).join(', ')}

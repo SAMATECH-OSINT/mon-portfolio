@@ -1,3 +1,4 @@
+import { DataModels } from '@/components/architecture/DataModels'
 import { FlowRail } from '@/components/architecture/FlowRail'
 import { Section } from '@/components/layout/Section'
 import { Reveal } from '@/components/ui/Reveal'
@@ -28,6 +29,10 @@ export function PipelinesSection() {
         <div className="lg:col-span-7">
           <FlowRail steps={pipelineFlow} label="Pipeline de données : des sources à l’intelligence artificielle" />
         </div>
+      </div>
+
+      <div className="mt-20">
+        <DataModels />
       </div>
     </Section>
   )
