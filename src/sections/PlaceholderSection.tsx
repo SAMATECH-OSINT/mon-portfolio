@@ -10,6 +10,7 @@ const titles: Record<SectionId, string> = {
   expertise: 'Domaines d’expertise',
   architecture: 'Architecture & Engineering',
   cloud: 'Cloud & Deployment',
+  pipelines: 'Big Data & Data Pipelines',
   observability: 'Observability & Security',
   projects: 'Projets',
   experience: 'Expérience professionnelle',
