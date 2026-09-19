@@ -1,0 +1,139 @@
+@import 'tailwindcss';
+
+/* ─────────────────────────────────────────────────────────────
+   Design tokens — Mamadou Sarr
+   Dark Cinematic · Futuristic · Premium · Institutional
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  /* Couleurs de marque */
+  --color-navy-950: #050b14;
+  --color-navy-900: #081426;
+  --color-navy-800: #0d1e38;
+  --color-navy-700: #14294a;
+  --color-electric: #1677ff;
+  /* Variante foncée pour les fonds de bouton (texte blanc : contraste ≥ 4.5) */
+  --color-electric-600: #0e5fd8;
+  --color-cyan: #00d9ff;
+  --color-ink: #f5f7fa;
+  /* Textes secondaires (contraste AA vérifié sur navy-950) */
+  --color-ink-muted: #a7b4c8;
+  --color-ink-subtle: #7f8ea6;
+  /* Touche institutionnelle, à utiliser avec parcimonie */
+  --color-gold: #c9a24b;
+
+  /* Traits et surfaces (transparences sur fond sombre) */
+  --color-line: rgb(120 160 220 / 0.14);
+  --color-line-strong: rgb(120 160 220 / 0.28);
+  --color-surface: rgb(13 30 56 / 0.55);
+  --color-surface-strong: rgb(13 30 56 / 0.85);
+
+  /* Typographie */
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Space Grotesk Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* Échelle fluide (mobile-first) */
+  --text-display: clamp(2.5rem, 1.4rem + 5.6vw, 5.75rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.03em;
+  --text-h2: clamp(1.875rem, 1.3rem + 2.6vw, 3.25rem);
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --text-h3--line-height: 1.25;
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
+  --text-lead--line-height: 1.6;
+
+  /* Rayons, ombres, mouvement */
+  --radius-card: 1rem;
+  --shadow-glow: 0 0 0 1px rgb(0 217 255 / 0.18), 0 12px 40px -12px rgb(22 119 255 / 0.45);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Espacement vertical des sections */
+  --spacing-section: clamp(4.5rem, 3rem + 7vw, 9rem);
+}
+
+/* ───────────── Base ───────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--color-navy-950);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: rgb(0 217 255 / 0.28);
+    color: var(--color-ink);
+  }
+
+  /* Focus clavier visible, cohérent partout */
+  :focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+
+  /* Scrollbar discrète */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-navy-700) var(--color-navy-950);
+  }
+
+  /* Ancres : décalage sous la navigation sticky */
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+}
+
+/* ───────────── Utilitaires du design system ───────────── */
+@utility gradient-text {
+  background-image: linear-gradient(100deg, var(--color-ink) 10%, var(--color-cyan) 60%, var(--color-electric) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility hairline {
+  border: 1px solid var(--color-line);
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-cyan);
+}
