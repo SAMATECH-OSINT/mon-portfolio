@@ -51,6 +51,20 @@
 
   /* Espacement vertical des sections */
   --spacing-section: clamp(4.5rem, 3rem + 7vw, 9rem);
+
+  /* Changement de contenu (panneaux interactifs, menu mobile) */
+  --animate-swap-in: swap-in 0.35s var(--ease-out-expo) both;
+
+  @keyframes swap-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
 
 /* ───────────── Base ───────────── */
@@ -154,6 +168,33 @@
   }
   100% {
     transform: translateY(260%);
+  }
+}
+
+/* Apparition au scroll (voir components/ui/Reveal.tsx). */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y, 20px), 0);
+  transition:
+    opacity 0.7s var(--ease-out-expo) var(--reveal-delay, 0s),
+    transform 0.7s var(--ease-out-expo) var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Texte de premier écran : visible d'emblée (LCP), seul le glissement est animé. */
+.reveal.reveal-slide {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

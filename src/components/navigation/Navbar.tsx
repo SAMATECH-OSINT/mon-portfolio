@@ -1,4 +1,3 @@
-import { AnimatePresence, m, useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Container } from '@/components/layout/Container'
@@ -19,16 +18,12 @@ interface NavbarProps {
 
 export function Navbar({ activeSection }: NavbarProps) {
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
   const toggleRef = useRef<HTMLButtonElement>(null)
-  const reduce = useReducedMotion()
 
   const activeTarget = navItems.find((item) => item.sections.includes(activeSection))?.target
 
-  const progress = useScrollProgress()
-  const { scrollY } = useScroll()
-  useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 12))
+  const { barRef, scrolled } = useScrollProgress()
 
   useBodyScrollLock(open)
 
@@ -115,31 +110,26 @@ export function Navbar({ activeSection }: NavbarProps) {
       </div>
 
       {/* Progression de lecture */}
-      <m.div
+      <div
+        ref={barRef}
         aria-hidden
-        style={{ scaleX: progress }}
+        style={{ transform: 'scaleX(0)' }}
         className="h-px origin-left bg-linear-to-r from-electric via-cyan to-cyan"
       />
 
-      <AnimatePresence>
-        {open && (
-          <m.div
-            id="mobile-menu"
-            initial={reduce ? false : { opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-0 top-16.25 bottom-0 overflow-y-auto border-t border-line bg-navy-950/95 backdrop-blur-xl xl:hidden"
-          >
-            <Container className="flex min-h-full flex-col justify-between gap-10 py-8">
-              <NavLinks activeTarget={activeTarget} orientation="vertical" onNavigate={close} />
-              <Button href={`#${navCta.target}`} size="lg" onClick={close} className="w-full sm:hidden">
-                {navCta.label}
-              </Button>
-            </Container>
-          </m.div>
-        )}
-      </AnimatePresence>
+      {open && (
+        <div
+          id="mobile-menu"
+          className="fixed inset-x-0 top-16.25 bottom-0 overflow-y-auto border-t border-line bg-navy-950/95 backdrop-blur-xl motion-safe:animate-swap-in xl:hidden"
+        >
+          <Container className="flex min-h-full flex-col justify-between gap-10 py-8">
+            <NavLinks activeTarget={activeTarget} orientation="vertical" onNavigate={close} />
+            <Button href={`#${navCta.target}`} size="lg" onClick={close} className="w-full sm:hidden">
+              {navCta.label}
+            </Button>
+          </Container>
+        </div>
+      )}
     </header>
   )
 }

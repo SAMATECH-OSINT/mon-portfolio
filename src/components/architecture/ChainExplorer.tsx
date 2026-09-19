@@ -1,9 +1,9 @@
-import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { Icon } from '@/components/ui/Icon'
 import type { FlowNode } from '@/data/architecture'
 import { useInView } from '@/hooks/useInView'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { cn } from '@/lib/cn'
 import { FlowRail } from './FlowRail'
 
@@ -23,7 +23,7 @@ export function ChainExplorer({ steps, label }: ChainExplorerProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [interacting, setInteracting] = useState(false)
   const [containerRef, inView] = useInView<HTMLDivElement>()
-  const reduceMotion = useReducedMotion() ?? false
+  const reduceMotion = usePrefersReducedMotion()
 
   const paused = interacting || reduceMotion || !inView
   useEffect(() => {
@@ -89,15 +89,7 @@ export function ChainExplorer({ steps, label }: ChainExplorerProps) {
         </ol>
 
         <div className="mt-8 min-h-44 rounded-card border border-line bg-surface p-6 sm:p-8" aria-live="polite">
-          <AnimatePresence mode="wait" initial={false}>
-            <m.div
-              key={active.id}
-              initial={reduceMotion ? false : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="grid gap-6 md:grid-cols-[auto_1fr] md:items-start"
-            >
+            <div key={active.id} className="grid gap-6 motion-safe:animate-swap-in md:grid-cols-[auto_1fr] md:items-start">
               <p className="font-mono text-sm text-ink-subtle">
                 {String(activeIndex + 1).padStart(2, '0')} / {String(steps.length).padStart(2, '0')}
               </p>
@@ -114,8 +106,7 @@ export function ChainExplorer({ steps, label }: ChainExplorerProps) {
                   </ul>
                 )}
               </div>
-            </m.div>
-          </AnimatePresence>
+            </div>
         </div>
       </div>
     </div>

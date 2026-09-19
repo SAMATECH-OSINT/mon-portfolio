@@ -1,6 +1,6 @@
-import { useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { usePointerParallax } from '@/hooks/usePointerParallax'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { moodFor } from './moods'
 import { NetworkField } from './networkField'
 
@@ -23,7 +23,7 @@ export default function BackgroundCanvas({ activeSection }: BackgroundCanvasProp
   const secondaryGlowRef = useRef<HTMLDivElement>(null)
   const fieldRef = useRef<NetworkField | null>(null)
   const sectionRef = useRef(activeSection)
-  const reduceMotion = useReducedMotion() ?? false
+  const reduceMotion = usePrefersReducedMotion()
   const pointer = usePointerParallax(!reduceMotion)
 
   useEffect(() => {

@@ -2,7 +2,7 @@
 
 Cybersecurity · Cloud · Data Engineering · Big Data · AI · Digital Transformation.
 
-React 19 · TypeScript (strict) · Vite · Tailwind CSS v4 · Framer Motion · Three.js / React Three Fiber.
+React 19 · TypeScript (strict) · Vite · Tailwind CSS v4 · Three.js (natif, globe du Hero).
 
 ## Commandes
 
@@ -13,6 +13,7 @@ npm run lint           # ESLint
 npm run build          # typecheck + build de production
 npm run preview        # prévisualiser le build
 npm run generate:globe # régénère le masque terrestre du globe (Natural Earth, domaine public)
+npm run optimize:images # génère les variantes AVIF/WebP/JPEG depuis assets-src/
 ```
 
 ## Modifier le contenu
@@ -38,6 +39,13 @@ Les indicateurs du Hero (`stats`) n'apparaissent qu'une fois renseignés.
 
 Pour trouver ce qui reste à compléter : `grep -rn "TODO" src/data`.
 
+### Images
+
+Déposer l'original dans `assets-src/` (ex. `portrait.jpg`), lancer `npm run optimize:images`, puis référencer
+son nom (ex. `photo: 'portrait'` dans `profile.ts`) ou utiliser `<ResponsiveImage name="…" alt="…" sizes="…" />`.
+Le script produit des variantes AVIF / WebP / JPEG, supprime les métadonnées EXIF et enregistre les dimensions
+(aucun décalage de mise en page). Les variantes sont versionnées : la CI n'a pas besoin de `sharp`.
+
 ## Architecture
 
 ```text
@@ -59,7 +67,9 @@ src/
 - Le fond et le globe sont chargés après le premier rendu (`requestIdleCallback`) et n'entravent jamais le contenu.
 - Fond : Canvas 2D (parallaxe souris / scroll, halos en calques CSS composités), densité adaptée à l'écran,
   dégradation automatique si les images sont lentes, pause quand l'onglet est masqué.
-- Globe : Three.js chargé en différé, suspendu hors écran, **remplacé par un rendu Canvas 2D** sur mobile,
-  si WebGL est indisponible, si le mode économie de données est actif ou en cas d'erreur.
-- `prefers-reduced-motion` : image fixe pour le fond et le globe, animations et défilement fluide désactivés.
+- Globe : Three.js natif chargé en différé, suspendu hors écran, **remplacé par un rendu Canvas 2D** sur mobile (< 768 px),
+  en `prefers-reduced-motion`, si WebGL est indisponible, en mode économie de données ou en cas d'erreur.
+- Apparitions au scroll en CSS pur (un seul `IntersectionObserver` partagé) ; aucune bibliothèque d'animation.
+- Polices auto-hébergées, sous-ensembles latin et latin-ext uniquement, avec préchargement des deux polices du premier écran.
+- `prefers-reduced-motion` : image fixe pour le fond, globe 2D, apparitions et défilement fluide désactivés.
 - Navigation clavier complète, lien d'évitement, focus visible, structure sémantique.

@@ -33,7 +33,7 @@ interface Profile {
     domains: Maybe<string>
   }
   location: Maybe<string>
-  /** Chemin vers la photo professionnelle, `TODO` tant qu'elle n'est pas fournie. */
+  /** Nom de l'image (assets-src/<nom>.jpg, voir `npm run optimize:images`) ; `TODO` tant qu'elle n'est pas validée. */
   photo: Maybe<string>
   /** URL publique du site (canonical, Open Graph, JSON-LD). */
   siteUrl: Maybe<string>

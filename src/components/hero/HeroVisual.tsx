@@ -1,10 +1,10 @@
-import { useReducedMotion } from 'framer-motion'
 import { lazy, Suspense, useState } from 'react'
 import { RenderBoundary } from '@/components/ui/RenderBoundary'
 import { useIdleReady } from '@/hooks/useIdleReady'
 import { useInView } from '@/hooks/useInView'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { usePointerParallax } from '@/hooks/usePointerParallax'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { cn } from '@/lib/cn'
 import { isWebGLAvailable } from '@/lib/webgl'
 import { GlobeFallback } from './GlobeFallback'
@@ -28,7 +28,7 @@ interface HeroVisualProps {
  * en différé, puis fondue par-dessus. Aucun état de la scène ne bloque le contenu.
  */
 export function HeroVisual({ className }: HeroVisualProps) {
-  const reduceMotion = useReducedMotion() ?? false
+  const reduceMotion = usePrefersReducedMotion()
   // Mobile : le globe reste en Canvas 2D (aucun coût Three.js, ~240 kB gzip économisés).
   const compact = useMediaQuery('(max-width: 767px)')
   const lowPower = navigator.hardwareConcurrency <= 4
@@ -37,9 +37,10 @@ export function HeroVisual({ className }: HeroVisualProps) {
   const [ready, setReady] = useState(false)
   const [failed, setFailed] = useState(false)
   const [containerRef, inView] = useInView<HTMLDivElement>()
-  const pointer = usePointerParallax(!reduceMotion && !compact)
+  const pointer = usePointerParallax(!compact)
 
-  const useWebGL = supported && idle && !failed && !compact
+  // Reduced motion, mobile ou WebGL indisponible : le rendu 2D suffit (aucun coût Three.js).
+  const useWebGL = supported && idle && !failed && !compact && !reduceMotion
 
   const fail = () => {
     setFailed(true)
@@ -56,7 +57,6 @@ export function HeroVisual({ className }: HeroVisualProps) {
           <Suspense fallback={null}>
             <div className={cn('absolute inset-0 transition-opacity duration-1000 motion-reduce:transition-none', ready ? 'opacity-100' : 'opacity-0')}>
               <GlobeScene
-                animated={!reduceMotion}
                 active={inView}
                 lowPower={lowPower}
                 pointer={pointer}

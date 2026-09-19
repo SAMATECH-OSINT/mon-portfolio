@@ -1,4 +1,3 @@
-import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
 import { Fragment, useState } from 'react'
 import { FlowConnector } from '@/components/architecture/FlowConnector'
 import { Badge } from '@/components/ui/Badge'
@@ -26,7 +25,6 @@ interface SkillsMatrixProps {
 
 export function SkillsMatrix({ domains }: SkillsMatrixProps) {
   const [selectedId, setSelectedId] = useState('cybersecurity')
-  const reduceMotion = useReducedMotion() ?? false
   const selected = domains.find((domain) => domain.id === selectedId) ?? domains[0]!
   const related = relatedDomainIds(domains, selected.id)
 
@@ -80,15 +78,7 @@ export function SkillsMatrix({ domains }: SkillsMatrixProps) {
       </div>
 
       <div className="lg:col-span-6 lg:sticky lg:top-28" aria-live="polite">
-        <AnimatePresence mode="wait" initial={false}>
-          <m.div
-            key={selected.id}
-            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -10 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-card border border-line bg-surface p-6 sm:p-8"
-          >
+          <div key={selected.id} className="rounded-card border border-line bg-surface p-6 motion-safe:animate-swap-in sm:p-8">
             <div className="flex items-center gap-4">
               <span className="grid size-12 place-items-center rounded-xl border border-line-strong bg-navy-900 text-cyan">
                 <Icon name={selected.icon} className="size-6" />
@@ -134,8 +124,7 @@ export function SkillsMatrix({ domains }: SkillsMatrixProps) {
                 </ul>
               </>
             )}
-          </m.div>
-        </AnimatePresence>
+          </div>
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import { Pending } from '@/components/ui/Pending'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 import { profile } from '@/data/profile'
 import { isTodo } from '@/data/types'
 
@@ -20,14 +21,11 @@ export function AboutPortrait() {
             </div>
           </div>
         ) : (
-          <img
-            src={profile.photo}
+          <ResponsiveImage
+            name={profile.photo}
             alt={`Portrait de ${profile.name}`}
-            width={800}
-            height={1000}
-            loading="lazy"
-            decoding="async"
-            className="size-full object-cover"
+            sizes="(min-width: 1024px) 384px, 90vw"
+            className="size-full object-cover object-[50%_18%]"
           />
         )}
       </div>

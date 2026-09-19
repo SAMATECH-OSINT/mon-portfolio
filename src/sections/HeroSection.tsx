@@ -24,7 +24,7 @@ export function HeroSection() {
         </div>
 
         <div className="order-2 lg:order-1 lg:col-span-7">
-          <Reveal>
+          <Reveal fade={false} y={12}>
             <p className="eyebrow flex items-center gap-3">
               <span aria-hidden className="relative flex size-2">
                 <span className="absolute inline-flex size-full rounded-full bg-cyan opacity-60 motion-safe:animate-ping" />
@@ -34,7 +34,7 @@ export function HeroSection() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.08}>
+          <Reveal fade={false} y={16} delay={0.06}>
             <h1
               id="home-title"
               className="mt-4 font-display text-display lg:mt-5 font-semibold uppercase text-ink"
@@ -44,7 +44,7 @@ export function HeroSection() {
             </h1>
           </Reveal>
 
-          <Reveal delay={0.16}>
+          <Reveal fade={false} y={16} delay={0.12}>
             <p className="mt-5 font-display text-[clamp(1.05rem,0.9rem+1.15vw,1.65rem)] leading-snug tracking-tight">
               <span className="block text-ink">{lineOne}</span>
               <span className="block text-ink-muted">{lineTwo}</span>
@@ -57,7 +57,7 @@ export function HeroSection() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.24}>
+          <Reveal fade={false} y={16} delay={0.18}>
             <p className="mt-5 max-w-xl text-lead text-ink-muted">{profile.heroDescription}</p>
           </Reveal>
 
