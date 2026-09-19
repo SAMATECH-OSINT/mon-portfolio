@@ -3,8 +3,10 @@ import { Container } from '@/components/layout/Container'
 import { HeroIndicators } from '@/components/hero/HeroIndicators'
 import { HeroVisual } from '@/components/hero/HeroVisual'
 import { Button } from '@/components/ui/Button'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 import { Reveal } from '@/components/ui/Reveal'
 import { profile } from '@/data/profile'
+import { isTodo } from '@/data/types'
 
 export function HeroSection() {
   const [lineOne, lineTwo] = profile.heroLines
@@ -26,10 +28,25 @@ export function HeroSection() {
         <div className="order-2 lg:order-1 lg:col-span-7">
           <Reveal fade={false} y={12}>
             <p className="eyebrow flex items-center gap-3">
-              <span aria-hidden className="relative flex size-2">
-                <span className="absolute inline-flex size-full rounded-full bg-cyan opacity-60 motion-safe:animate-ping" />
-                <span className="relative inline-flex size-2 rounded-full bg-cyan" />
-              </span>
+              {isTodo(profile.photo) ? (
+                <span aria-hidden className="relative flex size-2">
+                  <span className="absolute inline-flex size-full rounded-full bg-cyan opacity-60 motion-safe:animate-ping" />
+                  <span className="relative inline-flex size-2 rounded-full bg-cyan" />
+                </span>
+              ) : (
+                <span aria-hidden className="relative size-11 shrink-0">
+                  <span className="block size-full overflow-hidden rounded-full border border-cyan/50 shadow-[0_0_20px_-4px_rgb(0_217_255/0.55)]">
+                    <ResponsiveImage
+                      name={profile.photo}
+                      alt=""
+                      sizes="44px"
+                      priority
+                      className="size-full origin-[42%_14%] scale-[2.1] object-cover object-[42%_14%]"
+                    />
+                  </span>
+                  <span className="absolute -right-0.5 -top-0.5 size-2.5 rounded-full border-2 border-navy-950 bg-cyan" />
+                </span>
+              )}
               {profile.headlines.primary}
             </p>
           </Reveal>

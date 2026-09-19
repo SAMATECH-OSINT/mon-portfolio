@@ -33,6 +33,10 @@ interface Profile {
     domains: Maybe<string>
   }
   location: Maybe<string>
+  /** Langues de travail (source : CV). */
+  languages: ReadonlyArray<{ label: string; level: string }>
+  /** Chemin public du CV en PDF (version sans téléphones ni références) ; `TODO` = lien masqué. */
+  cv: Maybe<string>
   /** Nom de l'image (assets-src/<nom>.jpg, voir `npm run optimize:images`) ; `TODO` tant qu'elle n'est pas validée. */
   photo: Maybe<string>
   /** URL publique du site (canonical, Open Graph, JSON-LD). */
@@ -68,7 +72,8 @@ export const profile: Profile = {
     title: 'Technologie au service d’un impact réel',
     paragraphs: [
       'Mon profil combine cybersécurité, Cloud, Data Engineering, Big Data, intelligence artificielle, réseaux, développement et transformation numérique.',
-      TODO,
+      'Responsable du Bureau Informatique et de la Transition Numérique à la Direction du Groupement Mobile d’Intervention (DGMI) — Police Nationale du Sénégal, j’ai débuté mon parcours à la Gendarmerie Nationale, dans le renseignement criminel et la gestion de bases de données. Je forme aussi à l’École Nationale de Police et j’enseigne à l’Institut Supérieur de Management (ISM) de Thiès.',
+      'Rigueur opérationnelle, exigence de confidentialité et culture de la transformation numérique au service des institutions publiques.',
     ],
     pillars: [
       { icon: 'network', label: 'Réseaux' },
@@ -88,7 +93,13 @@ export const profile: Profile = {
     domains: TODO,
   },
 
-  location: TODO,
-  photo: TODO,
+  location: 'Thiès, Sénégal',
+  languages: [
+    { label: 'Français', level: 'Courant' },
+    { label: 'Anglais', level: 'Opérationnel' },
+  ],
+  // Version publique du CV : téléphones et « Références » supprimés du PDF (voir README).
+  cv: '/cv/Mamadou-Sarr-CV.pdf',
+  photo: 'portrait',
   siteUrl: TODO,
 }

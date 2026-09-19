@@ -46,6 +46,7 @@ export type IconKey =
   | 'briefcase'
   | 'flask'
   | 'file'
+  | 'pin'
 
 export interface Period {
   /** Année de début. */

@@ -1,6 +1,8 @@
 import { ArrowRight } from 'lucide-react'
 import { AboutPortrait } from '@/components/about/AboutPortrait'
+import { CvLink } from '@/components/contact/CvLink'
 import { Section } from '@/components/layout/Section'
+import { Badge } from '@/components/ui/Badge'
 import { Icon } from '@/components/ui/Icon'
 import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeading } from '@/components/ui/SectionHeading'
@@ -17,10 +19,10 @@ export function AboutSection() {
         <div className="lg:col-span-7">
           <SectionHeading id="about" eyebrow="À propos" title={profile.about.title} />
 
-          <div className="mt-8 grid gap-5 text-lead text-ink-muted">
+          <div className="mt-8 grid gap-5 text-ink-muted">
             {paragraphs.map((paragraph, i) => (
               <Reveal key={paragraph} delay={0.1 + i * 0.06}>
-                <p>{paragraph}</p>
+                <p className={i === 0 ? 'text-lead' : undefined}>{paragraph}</p>
               </Reveal>
             ))}
           </div>
@@ -37,6 +39,21 @@ export function AboutSection() {
                 </li>
               ))}
             </ul>
+          </Reveal>
+
+          <Reveal delay={0.24}>
+            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+              <ul aria-label="Langues" className="flex flex-wrap gap-2">
+                {profile.languages.map((language) => (
+                  <li key={language.label}>
+                    <Badge>
+                      {language.label} · {language.level}
+                    </Badge>
+                  </li>
+                ))}
+              </ul>
+              <CvLink size="md" />
+            </div>
           </Reveal>
 
           <Reveal delay={0.28}>

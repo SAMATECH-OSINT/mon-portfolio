@@ -8,29 +8,30 @@ export interface Education {
   year: Maybe<number>
 }
 
-/** Ordre antéchronologique. */
+/** Ordre antéchronologique. Source : CV ; Master 2 Réseaux et Télécommunications = 2017 (validé). */
 export const education: readonly Education[] = [
   {
     id: 'm2-idia',
-    title: 'Master 2 Ingénierie des Données et IA',
-    institution: TODO,
+    title: 'Master 2 — Ingénierie des Données et Intelligence Artificielle',
+    institution: 'Université de Thiès',
     year: 2024,
   },
   {
-    id: 'analyste-cyber',
-    title: 'Analyste en Cybersécurité',
-    institution: TODO,
-    year: 2018,
-  },
-  {
     id: 'm2-rt',
-    title: 'Master 2 Réseaux & Télécoms',
-    institution: TODO,
-    year: 2016,
+    title: 'Master 2 — Réseaux et Télécommunications',
+    institution: 'Université de Thiès',
+    year: 2017,
   },
   {
-    id: 'dut-ei',
-    title: 'DUT Électronique & Informatique',
+    id: 'licence-gi',
+    title: 'Licence — Génie Informatique',
+    institution: 'Université de Thiès',
+    year: 2015,
+  },
+  {
+    // TODO : établissement et année absents du CV.
+    id: 'dut-gei',
+    title: 'DUT — Génie Électrique et Informatique',
     institution: TODO,
     year: TODO,
   },

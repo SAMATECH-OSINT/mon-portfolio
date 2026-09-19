@@ -1,9 +1,8 @@
-import { Pending } from '@/components/ui/Pending'
 import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 import { profile } from '@/data/profile'
 import { isTodo } from '@/data/types'
 
-/** Portrait professionnel ; cadre provisoire tant que la photo n'est pas fournie. */
+/** Portrait professionnel (assets-src/portrait.jpg → variantes AVIF / WebP / JPEG). */
 export function AboutPortrait() {
   return (
     <div className="relative mx-auto w-full max-w-sm">
@@ -14,16 +13,12 @@ export function AboutPortrait() {
       <div className="relative aspect-4/5 overflow-hidden rounded-3xl border border-line-strong bg-navy-900">
         {isTodo(profile.photo) ? (
           <div className="grid size-full place-items-center bg-[radial-gradient(circle_at_30%_20%,rgb(22_119_255/0.28),transparent_60%)]">
-            <div className="flex flex-col items-center gap-4">
-              <span className="font-display text-7xl font-semibold tracking-tight text-ink/90">{profile.initials}</span>
-              <Pending />
-              <span className="sr-only">Photo professionnelle à compléter</span>
-            </div>
+            <span className="font-display text-7xl font-semibold tracking-tight text-ink/90">{profile.initials}</span>
           </div>
         ) : (
           <ResponsiveImage
             name={profile.photo}
-            alt={`Portrait de ${profile.name}`}
+            alt={`Portrait de ${profile.name}, en costume sombre et cravate`}
             sizes="(min-width: 1024px) 384px, 90vw"
             className="size-full object-cover object-[50%_18%]"
           />

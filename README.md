@@ -46,6 +46,12 @@ son nom (ex. `photo: 'portrait'` dans `profile.ts`) ou utiliser `<ResponsiveImag
 Le script produit des variantes AVIF / WebP / JPEG, supprime les métadonnées EXIF et enregistre les dimensions
 (aucun décalage de mise en page). Les variantes sont versionnées : la CI n'a pas besoin de `sharp`.
 
+### CV public
+
+`public/cv/Mamadou-Sarr-CV.pdf` est dérivé du CV d'origine : les numéros de téléphone et tout le bloc « Références »
+(données de tiers) en ont été **réellement supprimés** du PDF, pas simplement masqués. Pour le remplacer, déposer un
+autre PDF au même chemin. Le bouton disparaît si `profile.cv` vaut `TODO`.
+
 ## Architecture
 
 ```text

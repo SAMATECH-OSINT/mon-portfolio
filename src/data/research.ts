@@ -6,7 +6,7 @@ export interface ResearchAxis {
   icon: IconKey
 }
 
-/** Publications : aucune à ce jour, à compléter si elles existent. */
+/** TODO : publications et travaux de recherche — aucun n'est renseigné ; la section n'en affiche pas tant qu'il n'y en a pas. */
 export const researchAxes: readonly ResearchAxis[] = [
   { id: 'data-governance', label: 'Gouvernance des données', icon: 'scale' },
   { id: 'ai', label: 'Intelligence artificielle', icon: 'brain' },

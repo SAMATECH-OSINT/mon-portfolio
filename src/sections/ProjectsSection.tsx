@@ -11,7 +11,7 @@ export function ProjectsSection() {
         id="projects"
         eyebrow="Projets"
         title="Case studies"
-        description="Du problème à la solution, de l’architecture aux résultats."
+        description="Data, intelligence artificielle et systèmes d’information au service de la décision."
       />
 
       <ul className="mt-14 grid gap-5 lg:grid-cols-2">

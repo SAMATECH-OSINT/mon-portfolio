@@ -17,6 +17,7 @@ import {
   Landmark,
   Layers,
   Mail,
+  MapPin,
   Network,
   Radar,
   Scale,
@@ -77,6 +78,7 @@ const icons: Record<IconKey, IconComponent> = {
   briefcase: Briefcase,
   flask: FlaskConical,
   file: FileText,
+  pin: MapPin,
 }
 
 interface IconProps extends SVGProps<SVGSVGElement> {
