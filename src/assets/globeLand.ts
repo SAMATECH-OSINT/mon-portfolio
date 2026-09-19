@@ -2,8 +2,6 @@
 // Source : Natural Earth 1:110m (domaine public).
 
 export const GLOBE_STEP = 2
-export const GLOBE_COLS = 180
-export const GLOBE_ROWS = 90
 
 /** Classes : 0 mer · 1 terre · 2 Afrique · 3 Sénégal. Lignes séparées par « | », plages « classe+longueur ». */
 export const GLOBE_MASK =

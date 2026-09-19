@@ -29,15 +29,17 @@ interface HeroVisualProps {
  */
 export function HeroVisual({ className }: HeroVisualProps) {
   const reduceMotion = useReducedMotion() ?? false
-  const lowPower = useMediaQuery('(max-width: 767px)')
-  const idle = useIdleReady()
+  // Mobile : le globe reste en Canvas 2D (aucun coût Three.js, ~240 kB gzip économisés).
+  const compact = useMediaQuery('(max-width: 767px)')
+  const lowPower = navigator.hardwareConcurrency <= 4
+  const idle = useIdleReady(1200)
   const [supported] = useState(() => isWebGLAvailable() && !prefersSavingData())
   const [ready, setReady] = useState(false)
   const [failed, setFailed] = useState(false)
   const [containerRef, inView] = useInView<HTMLDivElement>()
-  const pointer = usePointerParallax(!reduceMotion && !lowPower)
+  const pointer = usePointerParallax(!reduceMotion && !compact)
 
-  const useWebGL = supported && idle && !failed
+  const useWebGL = supported && idle && !failed && !compact
 
   const fail = () => {
     setFailed(true)
@@ -47,12 +49,12 @@ export function HeroVisual({ className }: HeroVisualProps) {
   return (
     <div ref={containerRef} role="img" aria-label={LABEL} className={cn('relative aspect-square', className)}>
       <GlobeFallback
-        className={cn('absolute inset-0 size-full transition-opacity duration-1000', ready && 'opacity-0')}
+        className={cn('absolute inset-0 size-full transition-opacity duration-1000 motion-reduce:transition-none', ready && 'opacity-0')}
       />
       {useWebGL && (
         <RenderBoundary fallback={null} onError={fail}>
           <Suspense fallback={null}>
-            <div className={cn('absolute inset-0 transition-opacity duration-1000', ready ? 'opacity-100' : 'opacity-0')}>
+            <div className={cn('absolute inset-0 transition-opacity duration-1000 motion-reduce:transition-none', ready ? 'opacity-100' : 'opacity-0')}>
               <GlobeScene
                 animated={!reduceMotion}
                 active={inView}

@@ -98,6 +98,24 @@ export class NetworkField {
     this.glowTarget = anchor
   }
 
+  /**
+   * Positions (px) des deux halos. Ils sont rendus par des calques CSS déplacés en
+   * `transform` (composités par le GPU) : les dégrader dans le canvas coûterait
+   * deux remplissages plein écran à chaque image.
+   */
+  glowPositions(): { primary: GlowAnchor; secondary: GlowAnchor } {
+    return {
+      primary: {
+        x: this.glow.x * this.width + this.pointer.x * 40,
+        y: this.glow.y * this.height + this.pointer.y * 30,
+      },
+      secondary: {
+        x: this.width * (0.5 + this.pointer.x * 0.32),
+        y: this.height * (0.5 + this.pointer.y * 0.32),
+      },
+    }
+  }
+
   /** Réduit la densité de 25 % (dégradation adaptative si les images sont lentes). */
   reduceDensity(): void {
     this.quality = Math.max(0.4, this.quality * 0.75)
@@ -126,8 +144,6 @@ export class NetworkField {
     ctx.clearRect(0, 0, W, H)
     if (W === 0 || H === 0) return
 
-    this.drawGlows(W, H)
-
     const n = nodes.length
     const parallaxX = this.pointer.x * 26
     const parallaxY = this.pointer.y * 18
@@ -145,27 +161,6 @@ export class NetworkField {
   }
 
   // ── Dessin ──────────────────────────────────────────────────────────────
-
-  private drawGlows(W: number, H: number): void {
-    const { ctx } = this
-    const reach = Math.max(W, H)
-
-    const gx = this.glow.x * W + this.pointer.x * 40
-    const gy = this.glow.y * H + this.pointer.y * 30
-    const primary = ctx.createRadialGradient(gx, gy, 0, gx, gy, reach * 0.6)
-    primary.addColorStop(0, `rgba(${BLUE}, 0.16)`)
-    primary.addColorStop(1, `rgba(${BLUE}, 0)`)
-    ctx.fillStyle = primary
-    ctx.fillRect(0, 0, W, H)
-
-    const sx = W * (0.5 + this.pointer.x * 0.32)
-    const sy = H * (0.5 + this.pointer.y * 0.32)
-    const secondary = ctx.createRadialGradient(sx, sy, 0, sx, sy, reach * 0.38)
-    secondary.addColorStop(0, `rgba(${CYAN}, 0.055)`)
-    secondary.addColorStop(1, `rgba(${CYAN}, 0)`)
-    ctx.fillStyle = secondary
-    ctx.fillRect(0, 0, W, H)
-  }
 
   private drawLinks(n: number): void {
     const { ctx, buckets, nodes, linkDist } = this

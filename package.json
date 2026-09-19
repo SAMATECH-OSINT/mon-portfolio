@@ -9,7 +9,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b",
+    "generate:globe": "node scripts/generate-globe-data.mjs"
   },
   "keywords": [],
   "author": "",

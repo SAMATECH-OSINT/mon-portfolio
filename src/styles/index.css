@@ -72,10 +72,6 @@
     min-height: 100vh;
     /* Fond statique : visible avant le chargement du background dynamique et en cas d'échec. */
     background-color: var(--color-navy-950);
-    background-image:
-      radial-gradient(60rem 36rem at 78% -8%, rgb(22 119 255 / 0.16), transparent 62%),
-      radial-gradient(44rem 30rem at 6% 42%, rgb(0 217 255 / 0.05), transparent 60%);
-    background-attachment: fixed;
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 1rem;
@@ -83,6 +79,18 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Couche fixe composée par le GPU (un `background-attachment: fixed` forcerait un repaint à chaque scroll). */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(60rem 36rem at 78% -8%, rgb(22 119 255 / 0.16), transparent 62%),
+      radial-gradient(44rem 30rem at 6% 42%, rgb(0 217 255 / 0.05), transparent 60%);
   }
 
   h1,
@@ -128,10 +136,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
-
-@utility hairline {
-  border: 1px solid var(--color-line);
 }
 
 @utility eyebrow {

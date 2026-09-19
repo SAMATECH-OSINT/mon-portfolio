@@ -74,8 +74,6 @@ const output = `// Fichier généré par scripts/generate-globe-data.mjs — ne 
 // Source : Natural Earth 1:110m (domaine public).
 
 export const GLOBE_STEP = ${STEP}
-export const GLOBE_COLS = ${COLS}
-export const GLOBE_ROWS = ${ROWS}
 
 /** Classes : 0 mer · 1 terre · 2 Afrique · 3 Sénégal. Lignes séparées par « | », plages « classe+longueur ». */
 export const GLOBE_MASK =

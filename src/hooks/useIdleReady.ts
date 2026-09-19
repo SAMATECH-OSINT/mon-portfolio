@@ -1,20 +1,28 @@
 import { useEffect, useState } from 'react'
 
 /**
- * Devient vrai une fois le navigateur au repos après le premier rendu.
- * Sert à différer les éléments décoratifs pour ne pas concurrencer le contenu.
+ * Devient vrai une fois le navigateur au repos après le premier rendu, puis après
+ * `extraDelay` ms. Sert à échelonner les éléments décoratifs pour ne jamais
+ * concurrencer le contenu.
  */
-export function useIdleReady(timeout = 900): boolean {
+export function useIdleReady(extraDelay = 0): boolean {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    if (typeof window.requestIdleCallback === 'function') {
-      const id = window.requestIdleCallback(() => setReady(true), { timeout })
-      return () => window.cancelIdleCallback(id)
+    let timer = 0
+    const arm = () => {
+      timer = window.setTimeout(() => setReady(true), extraDelay)
     }
-    const id = window.setTimeout(() => setReady(true), 250)
-    return () => window.clearTimeout(id)
-  }, [timeout])
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(arm, { timeout: 900 })
+      return () => {
+        window.cancelIdleCallback(id)
+        window.clearTimeout(timer)
+      }
+    }
+    timer = window.setTimeout(arm, 250)
+    return () => window.clearTimeout(timer)
+  }, [extraDelay])
 
   return ready
 }
