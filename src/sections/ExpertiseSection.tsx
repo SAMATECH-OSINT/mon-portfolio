@@ -7,7 +7,7 @@ import { skillDomains } from '@/data/skills'
 /** Rythme de la grille : Cloud et Big Data sont mis en avant. */
 const layout: Record<string, { featured?: boolean; span: string }> = {
   cloud: { featured: true, span: '' },
-  bigdata: { featured: true, span: 'md:col-span-2 lg:col-span-2' },
+  bigdata: { featured: true, span: '' },
   ai: { span: 'md:col-span-2 lg:col-span-2' },
   development: { span: 'md:col-span-2 lg:col-span-1' },
 }

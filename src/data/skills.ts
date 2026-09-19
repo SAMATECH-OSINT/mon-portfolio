@@ -21,7 +21,7 @@ export interface SkillDomain {
 
 /**
  * Ordre = progression du portfolio :
- * Networks → Cybersecurity → Cloud → Data → Big Data → AI → Development.
+ * Networks → Cybersecurity → Cloud → Data → Databases → Big Data → AI → Development.
  * Aucun niveau de maîtrise n'est affiché : seuls les périmètres fournis figurent ici.
  */
 export const skillDomains: readonly SkillDomain[] = [
@@ -30,7 +30,7 @@ export const skillDomains: readonly SkillDomain[] = [
     label: 'Networks',
     title: 'Réseaux & Infrastructure',
     icon: 'network',
-    summary: 'Réseaux, télécommunications et systèmes : des infrastructures sécurisées de bout en bout.',
+    summary: 'Réseaux, télécommunications et systèmes : des infrastructures sécurisées de bout en bout.',
     focus: ['WAN/LAN', 'Administration réseaux', 'Virtualisation', 'Infrastructure sécurisée', 'Déploiement de sites'],
     technologies: [
       'Cisco',
@@ -57,6 +57,8 @@ export const skillDomains: readonly SkillDomain[] = [
       'Digital forensics',
       'Audit de sécurité',
       'Analyse des vulnérabilités',
+      'RBAC / contrôle d’accès',
+      'Chiffrement AES-256',
       'OSINT',
       'Renseignement numérique',
       'Monitoring',
@@ -66,29 +68,46 @@ export const skillDomains: readonly SkillDomain[] = [
   {
     id: 'cloud',
     label: 'Cloud',
-    title: 'Cloud & Infrastructure',
+    title: 'Cloud & Deployment',
     icon: 'cloud',
-    summary: 'Déploiement et exploitation d’applications et de données sur des infrastructures Cloud et VPS.',
+    summary:
+      'De l’infrastructure au déploiement : héberger, conteneuriser, déployer et exploiter des applications et des données.',
     focus: [
-      'VPS',
-      'Linux',
-      'Docker',
+      'Infrastructure Cloud',
+      'Conteneurisation',
       'Déploiement',
       'Reverse proxy',
       'DNS',
       'SSL/TLS',
       'Stockage objet',
-      'Infrastructure Cloud',
       'CI/CD',
       'Monitoring',
     ],
-    technologies: ['AWS', 'Cloudflare', 'Cloudflare R2', 'Render', 'Neon', 'VPS', 'Docker', 'Linux'],
+    technologies: [
+      'AWS',
+      'Cloudflare',
+      'Cloudflare R2',
+      'Render',
+      'Neon',
+      'Hostinger',
+      'VPS',
+      'Docker',
+      'Dokploy',
+      'MinIO',
+      'Linux',
+    ],
+    groups: [
+      { label: 'Hosting / Infrastructure', items: ['Hostinger', 'VPS', 'Linux'] },
+      { label: 'Containerization', items: ['Docker'] },
+      { label: 'Deployment / DevOps', items: ['Dokploy', 'Docker'] },
+      { label: 'Cloud & Edge', items: ['AWS', 'Render', 'Neon', 'Cloudflare', 'Cloudflare R2', 'MinIO'] },
+    ],
   },
   {
     id: 'data',
     label: 'Data',
     title: 'Data Engineering',
-    icon: 'database',
+    icon: 'workflow',
     summary: 'Ingestion, modélisation et traitement de la donnée.',
     focus: [
       'ETL',
@@ -102,7 +121,21 @@ export const skillDomains: readonly SkillDomain[] = [
       'APIs',
       'Bases de données',
     ],
-    technologies: ['Python', 'Pandas', 'NumPy', 'SQL', 'PostgreSQL', 'MySQL', 'PostGIS', 'Neo4j', 'Power BI', 'ETL'],
+    technologies: ['Python', 'Pandas', 'NumPy', 'SQL', 'PostgreSQL', 'PostGIS', 'MongoDB', 'Neo4j', 'Power BI', 'ETL'],
+  },
+  {
+    id: 'databases',
+    label: 'Databases',
+    title: 'Databases / Data Management',
+    icon: 'database',
+    summary: 'Trois modèles de données : relationnel, document et graphe.',
+    focus: ['SQL', 'NoSQL', 'Database Engineering', 'Data Modeling'],
+    technologies: ['PostgreSQL', 'MySQL', 'SQLite', 'MongoDB', 'Neo4j'],
+    groups: [
+      { label: 'Relationnel · SQL', items: ['PostgreSQL', 'MySQL', 'SQLite'] },
+      { label: 'Document · NoSQL', items: ['MongoDB'] },
+      { label: 'Graph · NoSQL', items: ['Neo4j'] },
+    ],
   },
   {
     id: 'bigdata',
@@ -143,12 +176,16 @@ export const skillDomains: readonly SkillDomain[] = [
       'Classification',
       'Clustering',
       'Deep learning',
+      'NLP',
       'LLM',
+      'Text-to-SQL',
+      'Text-to-Cypher',
+      'OCR',
       'RAG',
       'AI agents',
       'Systèmes d’aide à la décision',
     ],
-    technologies: ['Python', 'Scikit-learn', 'PyTorch', 'OpenAI', 'RAG'],
+    technologies: ['Python', 'Scikit-learn', 'XGBoost', 'PyTorch', 'OpenCV', 'LangChain', 'OpenAI', 'RAG'],
   },
   {
     id: 'development',
@@ -157,10 +194,23 @@ export const skillDomains: readonly SkillDomain[] = [
     icon: 'code',
     summary: 'Applications web full stack.',
     focus: ['API'],
-    technologies: ['React', 'TypeScript', 'JavaScript', 'FastAPI', 'Django', 'Laravel', 'PHP'],
+    technologies: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'JavaScript',
+      'FastAPI',
+      'Django',
+      'Laravel',
+      'PHP',
+      'SQLAlchemy',
+      'Alembic',
+      'Celery',
+      'Redis',
+    ],
     groups: [
-      { label: 'Frontend', items: ['React', 'TypeScript', 'JavaScript'] },
-      { label: 'Backend', items: ['FastAPI', 'Django', 'Laravel', 'PHP'] },
+      { label: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'JavaScript'] },
+      { label: 'Backend', items: ['FastAPI', 'Django', 'Laravel', 'PHP', 'SQLAlchemy', 'Alembic', 'Celery', 'Redis'] },
     ],
   },
 ]

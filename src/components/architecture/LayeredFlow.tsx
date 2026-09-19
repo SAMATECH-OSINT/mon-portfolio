@@ -34,6 +34,9 @@ export function LayeredFlow({ rows, label }: LayeredFlowProps) {
                     <Icon name={node.icon} className="size-5" />
                   </span>
                   <h3 className="mt-3 text-lg text-ink">{node.label}</h3>
+                  {node.tag && (
+                    <p className="mt-1 font-mono text-[0.68rem] uppercase tracking-widest text-cyan">{node.tag}</p>
+                  )}
                   <p className="mt-1.5 text-sm text-ink-muted">{node.role}</p>
                   <ul className="mt-3 flex flex-wrap justify-center gap-1.5">
                     {node.technologies.map((tech) => (

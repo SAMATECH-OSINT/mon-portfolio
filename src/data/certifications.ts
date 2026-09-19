@@ -55,7 +55,7 @@ export const certifications: readonly Certification[] = [
     issuer: 'Motorola',
     year: TODO,
     description:
-      'Déploiement de sites : configuration des équipements, liaisons en faisceaux hertziens (FH), intégration, interconnexion, tests, validation et mise en service de bout en bout.',
+      'Déploiement de sites : configuration des équipements, liaisons en faisceaux hertziens (FH), intégration, interconnexion, tests, validation et mise en service de bout en bout.',
     credentialUrl: TODO,
   },
 ]

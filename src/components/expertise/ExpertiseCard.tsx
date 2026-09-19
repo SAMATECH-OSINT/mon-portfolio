@@ -45,15 +45,17 @@ export function ExpertiseCard({ domain, featured = false, className }: Expertise
 
       <div className="mt-auto pt-6">
         {domain.groups ? (
-          <div className="grid gap-3">
+          <div className="grid gap-4">
             {domain.groups.map((group) => (
-              <div key={group.label} className="flex flex-wrap items-center gap-2">
-                <span className="w-16 font-mono text-[0.7rem] uppercase tracking-widest text-ink-subtle">
-                  {group.label}
-                </span>
-                {group.items.map((tech) => (
-                  <Badge key={tech}>{tech}</Badge>
-                ))}
+              <div key={group.label}>
+                <p className="font-mono text-[0.7rem] uppercase tracking-widest text-ink-subtle">{group.label}</p>
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {group.items.map((tech) => (
+                    <li key={tech}>
+                      <Badge>{tech}</Badge>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>

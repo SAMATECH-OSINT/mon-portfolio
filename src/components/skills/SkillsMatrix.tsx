@@ -14,7 +14,7 @@ import { domainsSharing, relatedDomainIds } from '@/lib/skills'
 const LAYERS: ReadonlyArray<readonly string[]> = [
   ['ai'],
   ['data', 'cloud', 'cybersecurity'],
-  ['bigdata'],
+  ['databases', 'bigdata'],
   ['networks'],
   ['development'],
 ]
@@ -39,7 +39,7 @@ export function SkillsMatrix({ domains }: SkillsMatrixProps) {
           {LAYERS.map((layer) => (
             <Fragment key={layer.join('-')}>
               <FlowConnector className="h-7" />
-              <div className={cn('grid w-full gap-2.5 sm:gap-3', layer.length === 3 ? 'grid-cols-3' : 'mx-auto max-w-[15rem] grid-cols-1')}>
+              <div className={cn('grid w-full gap-2.5 sm:gap-3', layer.length === 3 ? 'grid-cols-3' : layer.length === 2 ? 'mx-auto max-w-md grid-cols-2' : 'mx-auto max-w-[15rem] grid-cols-1')}>
                 {layer.map((id) => {
                   const domain = domains.find((d) => d.id === id)
                   if (!domain) return null
@@ -89,28 +89,32 @@ export function SkillsMatrix({ domains }: SkillsMatrixProps) {
               </div>
             </div>
 
-            <h4 className="mt-7 font-mono text-[0.7rem] uppercase tracking-widest text-ink-subtle">Technologies</h4>
-            <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {selected.technologies.map((tech) => {
-                const shared = domainsSharing(domains, selected.id, tech)
-                return (
-                  <li
-                    key={tech}
-                    className={cn(
-                      'rounded-lg border px-3 py-2.5',
-                      shared.length > 0 ? 'border-cyan/30 bg-cyan/[0.05]' : 'border-line bg-white/[0.02]',
-                    )}
-                  >
-                    <span className="block text-sm font-medium text-ink">{tech}</span>
-                    {shared.length > 0 && (
-                      <span className="mt-0.5 block font-mono text-[0.65rem] text-cyan">
-                        + {shared.map((d) => d.label).join(', ')}
-                      </span>
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
+            {(selected.groups ?? [{ label: 'Technologies', items: selected.technologies }]).map((group) => (
+              <div key={group.label}>
+                <h4 className="mt-7 font-mono text-[0.7rem] uppercase tracking-widest text-ink-subtle">{group.label}</h4>
+                <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                  {group.items.map((tech) => {
+                    const shared = domainsSharing(domains, selected.id, tech)
+                    return (
+                      <li
+                        key={tech}
+                        className={cn(
+                          'rounded-lg border px-3 py-2.5',
+                          shared.length > 0 ? 'border-cyan/30 bg-cyan/[0.05]' : 'border-line bg-white/[0.02]',
+                        )}
+                      >
+                        <span className="block text-sm font-medium text-ink">{tech}</span>
+                        {shared.length > 0 && (
+                          <span className="mt-0.5 block font-mono text-[0.65rem] text-cyan">
+                            + {shared.map((d) => d.label).join(', ')}
+                          </span>
+                        )}
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            ))}
 
             {selected.focus.length > 0 && (
               <>

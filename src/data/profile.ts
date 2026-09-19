@@ -71,7 +71,7 @@ export const profile: Profile = {
   about: {
     title: 'Technologie au service d’un impact réel',
     paragraphs: [
-      'Mon profil combine cybersécurité, Cloud, Data Engineering, Big Data, intelligence artificielle, réseaux, développement et transformation numérique.',
+      'Ingénieur orienté architecture, données, cybersécurité et transformation numérique : mon profil relie réseaux, Cloud, Data Engineering, Big Data, intelligence artificielle et développement.',
       'Responsable du Bureau Informatique et de la Transition Numérique à la Direction du Groupement Mobile d’Intervention (DGMI) — Police Nationale du Sénégal, j’ai débuté mon parcours à la Gendarmerie Nationale, dans le renseignement criminel et la gestion de bases de données. Je forme aussi à l’École Nationale de Police et j’enseigne à l’Institut Supérieur de Management (ISM) de Thiès.',
       'Rigueur opérationnelle, exigence de confidentialité et culture de la transformation numérique au service des institutions publiques.',
     ],
