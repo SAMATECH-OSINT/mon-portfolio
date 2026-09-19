@@ -1,5 +1,5 @@
 import { TODO } from './types'
-import type { Maybe } from './types'
+import type { IconKey, Maybe } from './types'
 
 interface Profile {
   name: string
@@ -12,9 +12,12 @@ interface Profile {
     stack: string
     transformation: string
   }
-  /** Sous-titre du Hero. */
-  domains: readonly string[]
+  /** Sous-titre du Hero, en deux lignes. */
+  heroLines: readonly [string, string]
+  heroTransformation: string
   heroDescription: string
+  /** Micro-indicateurs qualitatifs (aucun chiffre). */
+  heroHighlights: ReadonlyArray<{ icon: IconKey; label: string }>
   /** Vision : la chaîne « Infrastructure → … → Impact ». */
   tagline: string
   about: {
@@ -46,7 +49,13 @@ export const profile: Profile = {
     transformation: 'Digital Transformation & Data/AI Engineer',
   },
 
-  domains: ['Cybersecurity', 'Cloud', 'Data Engineering', 'Big Data', 'AI'],
+  heroLines: ['Cybersecurity · Cloud · Data Engineering', 'Big Data · Artificial Intelligence'],
+  heroTransformation: 'Digital Transformation',
+
+  heroHighlights: [
+    { icon: 'shield', label: 'Cybersecurity' },
+    { icon: 'layers', label: 'Cloud / Data / AI' },
+  ],
 
   heroDescription:
     'Je conçois des systèmes numériques sécurisés, des architectures Cloud et Data et des solutions intelligentes pour transformer les données en décisions.',

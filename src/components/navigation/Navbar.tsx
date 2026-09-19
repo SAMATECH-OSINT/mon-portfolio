@@ -3,8 +3,7 @@ import { Menu, X } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Container } from '@/components/layout/Container'
 import { Button } from '@/components/ui/Button'
-import { navCta, navItems, sectionOrder } from '@/data/navigation'
-import { useActiveSection } from '@/hooks/useActiveSection'
+import { navCta, navItems } from '@/data/navigation'
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock'
 import { useScrollProgress } from '@/hooks/useScrollProgress'
 import { cn } from '@/lib/cn'
@@ -13,14 +12,18 @@ import { NavLinks } from './NavLinks'
 
 const FOCUSABLE = 'a[href], button:not([disabled])'
 
-export function Navbar() {
+interface NavbarProps {
+  /** Identifiant de la section actuellement visible. */
+  activeSection: string
+}
+
+export function Navbar({ activeSection }: NavbarProps) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
   const toggleRef = useRef<HTMLButtonElement>(null)
   const reduce = useReducedMotion()
 
-  const activeSection = useActiveSection(sectionOrder)
   const activeTarget = navItems.find((item) => item.sections.includes(activeSection))?.target
 
   const progress = useScrollProgress()
