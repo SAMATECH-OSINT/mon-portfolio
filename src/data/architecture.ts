@@ -68,7 +68,7 @@ export const techChain: readonly FlowNode[] = [
     label: 'AI',
     role: 'Machine Learning, NLP / LLM, RAG et agents pour prédire, classer, interroger et assister.',
     icon: 'brain',
-    technologies: ['Scikit-learn', 'Random Forest', 'XGBoost', 'OpenAI', 'RAG'],
+    technologies: ['Scikit-learn', 'Random Forest', 'XGBoost', 'LLM', 'RAG'],
   },
   {
     id: 'security',
