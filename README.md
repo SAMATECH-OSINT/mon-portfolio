@@ -150,3 +150,5 @@ Aucune. Le site ne consomme aucune variable d'environnement ni secret au build o
 - Polices auto-hébergées, sous-ensembles latin et latin-ext uniquement, avec préchargement des deux polices du premier écran.
 - `prefers-reduced-motion` : image fixe pour le fond, globe 2D, apparitions et défilement fluide désactivés.
 - Navigation clavier complète, lien d'évitement, focus visible, structure sémantique.
+#   m o n - p o r t f o l i o  
+ 
