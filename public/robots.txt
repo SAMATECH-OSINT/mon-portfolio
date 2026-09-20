@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Sitemap : à ajouter une fois le domaine définitif choisi (voir README.md « Domaine personnalisé »).

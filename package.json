@@ -11,7 +11,9 @@
     "lint": "eslint .",
     "typecheck": "tsc -b",
     "generate:globe": "node scripts/generate-globe-data.mjs",
-    "optimize:images": "node scripts/optimize-images.mjs"
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "generate:social": "node scripts/generate-social-assets.mjs",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs"
   },
   "keywords": [],
   "author": "",

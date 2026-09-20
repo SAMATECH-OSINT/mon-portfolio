@@ -10,6 +10,10 @@ import { isTodo } from '@/data/types'
 
 export function HeroSection() {
   const [lineOne, lineTwo] = profile.heroLines
+  // Positionnement complet pour les moteurs de recherche et lecteurs d'écran, sans changer le rendu visuel du H1.
+  const seoLine = [profile.headlines.stack, profile.heroTransformation, isTodo(profile.location) ? null : profile.location]
+    .filter(Boolean)
+    .join(' · ')
 
   return (
     <section
@@ -58,6 +62,7 @@ export function HeroSection() {
             >
               <span className="block">{profile.firstName}</span>{' '}
               <span className="gradient-text block">{profile.lastName}</span>
+              <span className="sr-only"> — {seoLine}</span>
             </h1>
           </Reveal>
 
